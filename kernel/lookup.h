@@ -4,6 +4,6 @@
 
 int find_kallsyms_lookup_name(void);
 
-extern unsigned long (*kallsyms_lookup_name)(const char *name);
+extern void* (*kallsyms_lookup_name)(const char *name);
 
 #endif // LOOKUP_H

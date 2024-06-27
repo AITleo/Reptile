@@ -1,7 +1,7 @@
 #include <linux/kprobes.h>
 #include "lookup.h"
 
-unsigned long (*kallsyms_lookup_name)(const char *name);
+void* (*kallsyms_lookup_name)(const char *name);
 
 int find_kallsyms_lookup_name(void){
     // find the kallsyms_lookup_name function
@@ -9,7 +9,7 @@ int find_kallsyms_lookup_name(void){
 	char* symbol_name = "kallsyms_lookup_name";
 	kp.symbol_name = symbol_name;
     register_kprobe(&kp);
-    kallsyms_lookup_name = (unsigned long (*)(const char*)) kp.addr;
+    kallsyms_lookup_name = (void* (*)(const char*)) kp.addr;
     unregister_kprobe(&kp);
 }
 
