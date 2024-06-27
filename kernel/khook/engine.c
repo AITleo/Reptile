@@ -1,4 +1,5 @@
 #include "internal.h"
+#include "../lookup.h"
 
 static khook_stub_t *khook_stub_tbl = NULL;
 
@@ -72,7 +73,7 @@ static void khook_resolve(void)
 {
 	khook_t *p;
 	KHOOK_FOREACH_HOOK(p) {
-		p->target.addr = khook_lookup_name(p->target.name);
+		p->target.addr = kallsyms_lookup_name(p->target.name);
 	}
 }
 
@@ -109,7 +110,7 @@ int khook_init(void)
 	void *(*malloc)(long size) = NULL;
 	int   (*set_memory_x)(unsigned long, int) = NULL;
 
-	malloc = khook_lookup_name("module_alloc");
+	malloc = kallsyms_lookup_name("module_alloc");
 	if (!malloc || KHOOK_ARCH_INIT()) return -EINVAL;
 
 	khook_stub_tbl = malloc(KHOOK_STUB_TBL_SIZE);
@@ -122,7 +123,7 @@ int khook_init(void)
 	// region executable explicitly.
 	//
 
-	set_memory_x = khook_lookup_name("set_memory_x");
+	set_memory_x = kallsyms_lookup_name("set_memory_x");
 	if (set_memory_x) {
 		int numpages = round_up(KHOOK_STUB_TBL_SIZE, PAGE_SIZE) / PAGE_SIZE;
 		set_memory_x((unsigned long)khook_stub_tbl, numpages);
