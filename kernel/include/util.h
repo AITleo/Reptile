@@ -35,17 +35,6 @@ static inline int run_cmd(char *cmd)
 	return exec(argv);
 }
 
-static int ksym_lookup_cb(unsigned long data[], const char *name, void *module,
-			  unsigned long addr)
-{
-	int i = 0;
-	while (!module && (((const char *)data[0]))[i] == name[i]) {
-		if (!name[i++])
-			return !!(data[1] = addr);
-	}
-	return 0;
-}
-
 #ifdef CONFIG_GIVE_ROOT
 static inline void get_root(void)
 {
