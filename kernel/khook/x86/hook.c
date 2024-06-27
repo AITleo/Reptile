@@ -1,5 +1,5 @@
 #include "../internal.h"
-#include "../../lookup.h"
+#include "../../include/lookup.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 // IN-kernel length disassembler engine (x86 only, 2.6.33+)
