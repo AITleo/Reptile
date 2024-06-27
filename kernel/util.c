@@ -6,6 +6,7 @@
 #include <linux/sched.h>
 #include <linux/version.h>
 #include <linux/ctype.h>
+#include "lookup.h"
 
 #if LINUX_VERSION_CODE >= KERNEL_VERSION(4, 11, 0)
 # include <linux/sched/mm.h>
@@ -20,7 +21,7 @@ int util_init(void)
 #if LINUX_VERSION_CODE >= KERNEL_VERSION(4, 11, 0)
     _access_process_vm = (void *) access_process_vm;
 #else
-	_access_process_vm = (void *) ksym_lookup_name("access_process_vm");
+	_access_process_vm = (void *) kallsyms_lookup_name("access_process_vm");
 #endif
    
     if (!_access_process_vm)

