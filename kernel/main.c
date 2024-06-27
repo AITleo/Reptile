@@ -4,7 +4,7 @@
 #include "khook/engine.c"
 #include "config.h"
 #include "util.h"
-#include "lookup.h"
+#include "include/lookup.h"
 
 #ifdef CONFIG_AUTO_HIDE
 #	include "module.h"

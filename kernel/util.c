@@ -5,7 +5,7 @@
 #include <linux/sched.h>
 #include <linux/version.h>
 #include <linux/ctype.h>
-#include "lookup.h"
+#include "include/lookup.h"
 
 #if LINUX_VERSION_CODE >= KERNEL_VERSION(4, 11, 0)
 # include <linux/sched/mm.h>

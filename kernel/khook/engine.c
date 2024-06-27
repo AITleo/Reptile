@@ -1,5 +1,5 @@
 #include "internal.h"
-#include "../lookup.h"
+#include "../include/lookup.h"
 
 static khook_stub_t *khook_stub_tbl = NULL;
 

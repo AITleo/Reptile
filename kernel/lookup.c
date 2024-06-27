@@ -1,5 +1,5 @@
 #include <linux/kprobes.h>
-#include "lookup.h"
+#include "include/lookup.h"
 
 void* (*kallsyms_lookup_name)(const char *name);
 

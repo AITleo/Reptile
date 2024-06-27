@@ -1,7 +1,7 @@
 #include <linux/kernel.h>
 #include <linux/module.h>
 #include <linux/uaccess.h>
-#include "lookup.h"
+#include "../include/lookup.h"
 
 #ifndef user_addr_max
 #define user_addr_max() (current_thread_info()->addr_limit.seg)
