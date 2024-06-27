@@ -1,4 +1,5 @@
 #include "../internal.h"
+#include "../../lookup.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 // IN-kernel length disassembler engine (x86 only, 2.6.33+)
@@ -12,9 +13,9 @@ static struct {
 } khook_arch_lde;
 
 static inline int khook_arch_lde_init(void) {
-	khook_arch_lde.init = khook_lookup_name("insn_init");
+	khook_arch_lde.init = kallsyms_lookup_name("insn_init");
 	if (!khook_arch_lde.init) return -EINVAL;
-	khook_arch_lde.get_length = khook_lookup_name("insn_get_length");
+	khook_arch_lde.get_length = kallsyms_lookup_name("insn_get_length");
 	if (!khook_arch_lde.get_length) return -EINVAL;
 	return 0;
 }
