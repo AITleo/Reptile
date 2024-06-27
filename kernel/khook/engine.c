@@ -11,13 +11,6 @@ static int khook_lookup_cb(long data[], const char *name, void *module, long add
 	} return 0;
 }
 
-static void *khook_lookup_name(const char *name)
-{
-	long data[2] = { (long)name, 0 };
-	kallsyms_on_each_symbol((void *)khook_lookup_cb, data);
-	return (void *)data[1];
-}
-
 static void *khook_map_writable(void *addr, size_t len)
 {
 	struct page *pages[2] = { 0 }; // len << PAGE_SIZE

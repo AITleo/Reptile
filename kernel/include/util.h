@@ -47,13 +47,6 @@ static int ksym_lookup_cb(unsigned long data[], const char *name, void *module,
 	return 0;
 }
 
-static inline unsigned long ksym_lookup_name(const char *name)
-{
-	unsigned long data[2] = {(unsigned long)name, 0};
-	kallsyms_on_each_symbol((void *)ksym_lookup_cb, data);
-	return data[1];
-}
-
 #ifdef CONFIG_GIVE_ROOT
 static inline void get_root(void)
 {
