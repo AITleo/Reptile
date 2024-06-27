@@ -1,5 +1,4 @@
 #include <linux/version.h>
-#include <linux/kallsyms.h>
 #include <linux/cred.h>
 
 #if LINUX_VERSION_CODE < KERNEL_VERSION(4, 14, 0)

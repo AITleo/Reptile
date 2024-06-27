@@ -1,5 +1,4 @@
 #include <linux/kmod.h>
-#include <linux/kallsyms.h>
 #include <linux/types.h>
 #include <linux/slab.h>
 #include <linux/mm.h>

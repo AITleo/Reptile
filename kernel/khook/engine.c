@@ -5,13 +5,6 @@ static khook_stub_t *khook_stub_tbl = NULL;
 
 ////////////////////////////////////////////////////////////////////////////////
 
-static int khook_lookup_cb(long data[], const char *name, void *module, long addr)
-{
-	int i = 0; while (!module && (((const char *)data[0]))[i] == name[i]) {
-		if (!name[i++]) return !!(data[1] = addr);
-	} return 0;
-}
-
 static void *khook_map_writable(void *addr, size_t len)
 {
 	struct page *pages[2] = { 0 }; // len << PAGE_SIZE
